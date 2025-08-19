@@ -14,7 +14,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
             <Activity className="w-10 h-10 text-white" />
           </div>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            BHV Triage Spel
+            Soliede BHV Spel
           </h1>
           <p className="text-lg font-semibold text-blue-600">
             Shock & Flauwte
