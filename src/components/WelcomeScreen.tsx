@@ -28,7 +28,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
           </div>
           <div className="flex items-center space-x-3">
             <Clock className="w-5 h-5 text-blue-600" />
-            <span className="text-gray-700">Speeltijd: 10-15 minuten</span>
+            <span className="text-gray-700">Speeltijd: 5-10 minuten</span>
           </div>
           <div className="flex items-center space-x-3">
             <Activity className="w-5 h-5 text-blue-600" />
