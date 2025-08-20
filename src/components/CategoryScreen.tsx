@@ -106,7 +106,7 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({
     pointerEvents: 'none' as const
   } : {};
 
-  const conditionColor = selectedCondition === 'shock' ? 'blue' : 'teal';
+  const conditionColor = selectedCondition === 'shock' ? '#009fe3' : '#52bbb5';
   const conditionLabel = selectedCondition.toUpperCase();
 
   // Group correct cards by category for this condition
@@ -129,35 +129,34 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({
   return (
     <div className={`min-h-screen p-4 ${
       selectedCondition === 'shock' 
-        ? 'bg-gradient-to-br from-orange-50 to-blue-50' 
-        : 'bg-gradient-to-br from-orange-50 to-teal-50'
+        ? 'bg-gradient-to-br from-[#009fe3]/10 to-[#006072]/10' 
+        : 'bg-gradient-to-br from-[#52bbb5]/10 to-[#009fe3]/10'
     }`}>
       <div className="max-w-lg mx-auto h-screen flex flex-col">
         <div className="flex items-center justify-between mb-6">
           <button
             onClick={onBack}
-            className="flex items-center space-x-2 text-gray-600 hover:text-gray-800"
+            className="flex items-center space-x-2 text-[#006072] hover:text-[#009fe3] transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
             <span>Terug</span>
           </button>
-          <div className="bg-white px-4 py-2 rounded-full shadow-sm">
-            <span className="text-sm font-semibold text-gray-700">
+          <div className="bg-white px-4 py-2 rounded-full shadow-sm border border-[#52bbb5]/20">
+            <span className="text-sm font-semibold text-[#006072]">
               {progress.current} van {progress.total}
             </span>
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-xl p-4 mb-4 flex-shrink-0">
+        <div className="bg-white rounded-2xl shadow-xl p-4 mb-4 flex-shrink-0 border border-[#52bbb5]/10">
           <div className="text-center mb-3">
-            <span className={`inline-block px-4 py-2 rounded-full text-white font-semibold text-sm ${
-              selectedCondition === 'shock' ? 'bg-blue-600' : 'bg-teal-600'
-            }`}>
+            <span className={`inline-block px-4 py-2 rounded-full text-white font-semibold text-sm`}
+                  style={{ backgroundColor: conditionColor }}>
               {conditionLabel}
             </span>
           </div>
           
-          <h2 className="text-lg font-bold text-center mb-3 text-gray-900">
+          <h2 className="text-lg font-bold text-center mb-3 text-[#006072]">
             Sleep de kaart naar het juiste vak
           </h2>
           
@@ -195,8 +194,8 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({
           >
             {correctCardsByCategory.oorzaken && correctCardsByCategory.oorzaken.slice(0, 2).map((card, index) => (
               <div key={index} className="flex items-center space-x-2 mb-1">
-                <CheckCircle className="w-3 h-3 text-green-600 flex-shrink-0" />
-                <span className="text-xs text-gray-600 truncate">{card.text}</span>
+                <CheckCircle className="w-3 h-3 text-[#52bbb5] flex-shrink-0" />
+                <span className="text-xs text-[#006072] truncate">{card.text}</span>
               </div>
             ))}
           </DropZone>
@@ -209,8 +208,8 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({
           >
             {correctCardsByCategory.verschijnselen && correctCardsByCategory.verschijnselen.slice(0, 2).map((card, index) => (
               <div key={index} className="flex items-center space-x-2 mb-1">
-                <CheckCircle className="w-3 h-3 text-green-600 flex-shrink-0" />
-                <span className="text-xs text-gray-600 truncate">{card.text}</span>
+                <CheckCircle className="w-3 h-3 text-[#52bbb5] flex-shrink-0" />
+                <span className="text-xs text-[#006072] truncate">{card.text}</span>
               </div>
             ))}
           </DropZone>
@@ -223,8 +222,8 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({
           >
             {correctCardsByCategory.eerste_hulp && correctCardsByCategory.eerste_hulp.slice(0, 2).map((card, index) => (
               <div key={index} className="flex items-center space-x-2 mb-1">
-                <CheckCircle className="w-3 h-3 text-green-600 flex-shrink-0" />
-                <span className="text-xs text-gray-600 truncate">{card.text}</span>
+                <CheckCircle className="w-3 h-3 text-[#52bbb5] flex-shrink-0" />
+                <span className="text-xs text-[#006072] truncate">{card.text}</span>
               </div>
             ))}
           </DropZone>
