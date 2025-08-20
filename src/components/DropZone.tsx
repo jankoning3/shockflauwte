@@ -70,12 +70,6 @@ const DropZone: React.FC<DropZoneProps> = ({ id, label, isActive, color, childre
           {children}
         </div>
       )}
-      
-      {!children && (
-        <div className={`flex-1 flex items-center justify-center ${classes.text} opacity-60`}>
-          <span className="text-xs font-medium">Sleep kaart hierheen</span>
-        </div>
-      )}
     </div>
   );
 };
