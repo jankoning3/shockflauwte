@@ -117,7 +117,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
         {/* Header with score */}
         <div className="bg-white rounded-2xl shadow-xl p-6 mb-6 border border-[#52bbb5]/20">
           <div className="text-center">
-            <div className="w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+            <div className="w-70 h-18 mx-auto mb-3 flex items-center justify-center">
               <img 
                 src="/soliede_logo_RGB.jpg" 
                 alt="Soliede Logo" 
