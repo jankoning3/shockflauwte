@@ -10,7 +10,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
     <div className="min-h-screen bg-gradient-to-br from-[#009fe3]/10 to-[#52bbb5]/10 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-xl p-8 max-w-lg w-full text-center">
         <div className="mb-4">
-          <div className="w-62 h-18 mx-auto mb-3 flex items-center justify-center">
+          <div className="w-70 h-18 mx-auto mb-3 flex items-center justify-center">
             <img 
               src="/soliede_logo_RGB.jpg" 
               alt="Soliede Logo" 
