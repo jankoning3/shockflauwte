@@ -34,15 +34,15 @@ const DropZone: React.FC<DropZoneProps> = ({ id, label, isActive, color, childre
         // Fallback voor shock/flauwte keuze
         if (categoryId === 'shock') {
           return {
-            bg: isActive ? 'bg-[#009fe3]/20 border-[#009fe3]' : 'bg-[#009fe3]/10 border-[#009fe3]/40',
+            bg: isActive ? 'bg-[#278eff]/20 border-[#278eff]' : 'bg-[#278eff]/10 border-[#278eff]/40',
             text: 'text-[#006072]',
-            accent: 'bg-[#009fe3]'
+            accent: 'bg-[#278eff]'
           };
         } else if (categoryId === 'flauwte') {
           return {
-            bg: isActive ? 'bg-[#52bbb5]/20 border-[#52bbb5]' : 'bg-[#52bbb5]/10 border-[#52bbb5]/40',
+            bg: isActive ? 'bg-[#af27ff]/20 border-[#af27ff]' : 'bg-[#af27ff]/10 border-[#af27ff]/40',
             text: 'text-[#006072]',
-            accent: 'bg-[#52bbb5]'
+            accent: 'bg-[#af27ff]'
           };
         }
         // Default fallback
