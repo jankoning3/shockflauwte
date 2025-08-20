@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from '../types';
-import { RotateCcw, CheckCircle, XCircle, Play, Heart, AlertTriangle } from 'lucide-react';
+import { RotateCcw, CheckCircle, XCircle, Play } from 'lucide-react';
 import { calculateScore, getScoreMessage } from '../utils/gameUtils';
 import { categoryLabels } from '../data/gameData';
 
@@ -23,52 +23,101 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
   const message = getScoreMessage(score);
 
   // Group cards by condition and category
-  const groupCardsByCategory = (cards: Card[]) => {
-    const grouped: Record<string, Card[]> = {};
+  const groupCardsByConditionAndCategory = (cards: Card[]) => {
+    const grouped: Record<string, Record<string, Card[]>> = {
+      shock: { oorzaken: [], verschijnselen: [], eerste_hulp: [] },
+      flauwte: { oorzaken: [], verschijnselen: [], eerste_hulp: [] }
+    };
+    
     cards.forEach(card => {
-      const key = `${card.condition}-${card.category}`;
-      if (!grouped[key]) grouped[key] = [];
-      grouped[key].push(card);
+      if (grouped[card.condition] && grouped[card.condition][card.category]) {
+        grouped[card.condition][card.category].push(card);
+      }
     });
+    
     return grouped;
   };
 
-  const correctGrouped = groupCardsByCategory(correctCards);
-  const incorrectGrouped = groupCardsByCategory(incorrectCards);
+  const correctGrouped = groupCardsByConditionAndCategory(correctCards);
+  const incorrectGrouped = groupCardsByConditionAndCategory(incorrectCards);
 
-  const getCategoryIcon = (condition: 'shock' | 'flauwte', category: string) => {
-    if (condition === 'shock') {
-      return <AlertTriangle className="w-4 h-4 text-red-600" />;
-    } else {
-      return <Heart className="w-4 h-4 text-teal-600" />;
+  const getCategoryColor = (category: string) => {
+    switch(category) {
+      case 'oorzaken':
+        return 'bg-[#009fe3]';
+      case 'verschijnselen':
+        return 'bg-[#52bbb5]';
+      case 'eerste_hulp':
+        return 'bg-[#d5ac48]';
+      default:
+        return 'bg-[#009fe3]';
     }
   };
 
-  const getCategoryColor = (condition: 'shock' | 'flauwte', category: string) => {
-    const baseColors = {
-      oorzaken: condition === 'shock' ? 'bg-red-50 border-red-200' : 'bg-teal-50 border-teal-200',
-      verschijnselen: condition === 'shock' ? 'bg-orange-50 border-orange-200' : 'bg-blue-50 border-blue-200',
-      eerste_hulp: condition === 'shock' ? 'bg-purple-50 border-purple-200' : 'bg-green-50 border-green-200'
-    };
-    return baseColors[category as keyof typeof baseColors] || 'bg-gray-50 border-gray-200';
+  const renderConditionSection = (condition: 'shock' | 'flauwte') => {
+    const conditionColor = condition === 'shock' ? '#009fe3' : '#52bbb5';
+    const categories = ['oorzaken', 'verschijnselen', 'eerste_hulp'];
+    
+    return (
+      <div className="bg-white rounded-2xl shadow-xl p-6 border border-[#52bbb5]/20">
+        <div className="text-center mb-6">
+          <div 
+            className="inline-block px-6 py-3 rounded-xl text-white font-bold text-lg mb-4"
+            style={{ backgroundColor: conditionColor }}
+          >
+            {condition.toUpperCase()}
+          </div>
+        </div>
+        
+        <div className="space-y-4">
+          {categories.map(category => {
+            const correct = correctGrouped[condition][category] || [];
+            const incorrect = incorrectGrouped[condition][category] || [];
+            const total = correct.length + incorrect.length;
+            
+            if (total === 0) return null;
+            
+            return (
+              <div key={category} className="border border-[#52bbb5]/20 rounded-lg p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <div className={`${getCategoryColor(category)} text-white px-3 py-1 rounded-lg font-semibold text-sm`}>
+                    {categoryLabels[category as keyof typeof categoryLabels]}
+                  </div>
+                  <div className="text-sm font-semibold text-[#006072]">
+                    {correct.length}/{total} correct
+                  </div>
+                </div>
+                
+                <div className="space-y-2">
+                  {correct.map((card, index) => (
+                    <div key={`correct-${index}`} className="flex items-start space-x-2 text-sm">
+                      <CheckCircle className="w-4 h-4 text-[#52bbb5] mt-0.5 flex-shrink-0" />
+                      <span className="text-[#006072] leading-tight">{card.text}</span>
+                    </div>
+                  ))}
+                  
+                  {incorrect.map((card, index) => (
+                    <div key={`incorrect-${index}`} className="flex items-start space-x-2 text-sm">
+                      <XCircle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-[#006072] leading-tight">{card.text}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
   };
 
-  const allCategories = [
-    { condition: 'shock', category: 'oorzaken' },
-    { condition: 'shock', category: 'verschijnselen' },
-    { condition: 'shock', category: 'eerste_hulp' },
-    { condition: 'flauwte', category: 'oorzaken' },
-    { condition: 'flauwte', category: 'verschijnselen' },
-    { condition: 'flauwte', category: 'eerste_hulp' }
-  ];
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-blue-50 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-[#009fe3]/10 to-[#52bbb5]/10 p-4">
       <div className="max-w-4xl mx-auto">
         {/* Header with score */}
-        <div className="bg-white rounded-2xl shadow-xl p-6 mb-6">
+        <div className="bg-white rounded-2xl shadow-xl p-6 mb-6 border border-[#52bbb5]/20">
           <div className="text-center">
-            <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+            <div className="w-20 h-20 mx-auto mb-4 flex items-center justify-center">
               <img 
                 src="/soliede_logo_pay-off_RGB.jpg" 
                 alt="Soliede Logo" 
@@ -76,31 +125,31 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
               />
             </div>
             
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">
+            <h1 className="text-3xl font-bold text-[#006072] mb-2">
               {score}%
             </h1>
             
-            <p className="text-gray-700 mb-4">
+            <p className="text-[#006072] mb-6 text-lg">
               {message}
             </p>
             
             <div className="grid grid-cols-2 gap-4 mb-4">
-              <div className="bg-green-50 rounded-lg p-3">
-                <div className="flex items-center justify-center space-x-2 mb-1">
-                  <CheckCircle className="w-4 h-4 text-green-600" />
-                  <span className="font-semibold text-green-800 text-sm">Correct</span>
+              <div className="bg-[#52bbb5]/10 rounded-lg p-4 border border-[#52bbb5]/20">
+                <div className="flex items-center justify-center space-x-2 mb-2">
+                  <CheckCircle className="w-5 h-5 text-[#52bbb5]" />
+                  <span className="font-semibold text-[#006072]">Correct</span>
                 </div>
-                <p className="text-xl font-bold text-green-600">
+                <p className="text-2xl font-bold text-[#52bbb5]">
                   {correctCards.length}
                 </p>
               </div>
               
-              <div className="bg-red-50 rounded-lg p-3">
-                <div className="flex items-center justify-center space-x-2 mb-1">
-                  <XCircle className="w-4 h-4 text-red-600" />
-                  <span className="font-semibold text-red-800 text-sm">Fout</span>
+              <div className="bg-red-50 rounded-lg p-4 border border-red-200">
+                <div className="flex items-center justify-center space-x-2 mb-2">
+                  <XCircle className="w-5 h-5 text-red-500" />
+                  <span className="font-semibold text-red-700">Fout</span>
                 </div>
-                <p className="text-xl font-bold text-red-600">
+                <p className="text-2xl font-bold text-red-500">
                   {incorrectCards.length}
                 </p>
               </div>
@@ -108,53 +157,10 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
           </div>
         </div>
 
-        {/* Detailed results by category */}
-        <div className="bg-white rounded-2xl shadow-xl p-6 mb-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-4 text-center">
-            Resultaten per Categorie
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {allCategories.map(({ condition, category }) => {
-              const key = `${condition}-${category}`;
-              const correct = correctGrouped[key] || [];
-              const incorrect = incorrectGrouped[key] || [];
-              const total = correct.length + incorrect.length;
-              
-              if (total === 0) return null;
-              
-              return (
-                <div key={key} className={`rounded-lg border-2 p-4 ${getCategoryColor(condition, category)}`}>
-                  <div className="flex items-center space-x-2 mb-3">
-                    {getCategoryIcon(condition, category)}
-                    <h3 className="font-semibold text-gray-800 text-sm">
-                      {condition.toUpperCase()} - {categoryLabels[category as keyof typeof categoryLabels]}
-                    </h3>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    {correct.map((card, index) => (
-                      <div key={`correct-${index}`} className="flex items-start space-x-2 text-xs">
-                        <CheckCircle className="w-3 h-3 text-green-600 mt-0.5 flex-shrink-0" />
-                        <span className="text-gray-700 leading-tight">{card.text}</span>
-                      </div>
-                    ))}
-                    
-                    {incorrect.map((card, index) => (
-                      <div key={`incorrect-${index}`} className="flex items-start space-x-2 text-xs">
-                        <XCircle className="w-3 h-3 text-red-600 mt-0.5 flex-shrink-0" />
-                        <span className="text-gray-700 leading-tight">{card.text}</span>
-                      </div>
-                    ))}
-                  </div>
-                  
-                  <div className="mt-2 text-xs font-semibold text-gray-600">
-                    {correct.length}/{total} correct
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+        {/* Results per condition */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          {renderConditionSection('shock')}
+          {renderConditionSection('flauwte')}
         </div>
 
         {/* Action buttons */}
@@ -162,7 +168,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
           {incorrectCards.length > 0 && (
             <button
               onClick={onRetryIncorrect}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center space-x-2"
+              className="w-full bg-[#009fe3] hover:bg-[#006072] text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg"
             >
               <RotateCcw className="w-5 h-5" />
               <span>Oefen foute kaarten ({incorrectCards.length})</span>
@@ -171,7 +177,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
           
           <button
             onClick={onRestart}
-            className="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center space-x-2"
+            className="w-full bg-[#52bbb5] hover:bg-[#009fe3] text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg"
           >
             <Play className="w-5 h-5" />
             <span>Nieuw Spel Starten</span>
@@ -179,9 +185,9 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
         </div>
 
         {score === 100 && (
-          <div className="mt-4 bg-gradient-to-r from-orange-50 to-blue-50 rounded-lg p-4 text-center">
-            <p className="text-sm text-gray-700 font-medium">
-              🎯 Perfect! Je beheerst het onderscheid tussen shock en flauwte volledig!
+          <div className="mt-6 bg-gradient-to-r from-[#52bbb5]/10 to-[#009fe3]/10 rounded-lg p-4 text-center border border-[#52bbb5]/20">
+            <p className="text-[#006072] font-medium">
+              Perfect! Je beheerst het onderscheid tussen shock en flauwte volledig!
             </p>
           </div>
         )}
