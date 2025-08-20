@@ -1,4 +1,6 @@
+
 import React from 'react';
+import { Heart, Eye, LifeBuoy } from 'lucide-react';
 
 interface DropZoneProps {
   id: string;
@@ -9,42 +11,63 @@ interface DropZoneProps {
 }
 
 const DropZone: React.FC<DropZoneProps> = ({ id, label, isActive, color, children }) => {
-  const colorClasses = {
-    blue: {
-      bg: isActive ? 'bg-blue-100 border-blue-400' : 'bg-blue-50 border-blue-200',
-      text: 'text-blue-800',
-      accent: 'bg-blue-600'
-    },
-    teal: {
-      bg: isActive ? 'bg-teal-100 border-teal-400' : 'bg-teal-50 border-teal-200',
-      text: 'text-teal-800',
-      accent: 'bg-teal-600'
-    },
-    orange: {
-      bg: isActive ? 'bg-orange-100 border-orange-400' : 'bg-orange-50 border-orange-200',
-      text: 'text-orange-800',
-      accent: 'bg-orange-600'
-    },
-    green: {
-      bg: isActive ? 'bg-green-100 border-green-400' : 'bg-green-50 border-green-200',
-      text: 'text-green-800',
-      accent: 'bg-green-600'
+  // Vaste kleuren per categorie onafhankelijk van shock/flauwte
+  const getCategoryColor = (categoryId: string) => {
+    switch(categoryId) {
+      case 'oorzaken':
+        return {
+          bg: isActive ? 'bg-[#009fe3]/20 border-[#009fe3]' : 'bg-[#009fe3]/10 border-[#009fe3]/40',
+          text: 'text-[#006072]',
+          accent: 'bg-[#009fe3]',
+          icon: Heart
+        };
+      case 'verschijnselen':
+        return {
+          bg: isActive ? 'bg-[#52bbb5]/20 border-[#52bbb5]' : 'bg-[#52bbb5]/10 border-[#52bbb5]/40',
+          text: 'text-[#006072]',
+          accent: 'bg-[#52bbb5]',
+          icon: Eye
+        };
+      case 'eerste_hulp':
+        return {
+          bg: isActive ? 'bg-[#d5ac48]/20 border-[#d5ac48]' : 'bg-[#d5ac48]/10 border-[#d5ac48]/40',
+          text: 'text-[#006072]',
+          accent: 'bg-[#d5ac48]',
+          icon: LifeBuoy
+        };
+      default:
+        // Fallback voor shock/flauwte keuze
+        return {
+          bg: isActive ? 'bg-[#009fe3]/20 border-[#009fe3]' : 'bg-[#009fe3]/10 border-[#009fe3]/40',
+          text: 'text-[#006072]',
+          accent: 'bg-[#009fe3]',
+          icon: Heart
+        };
     }
   };
 
-  const classes = colorClasses[color];
+  const classes = getCategoryColor(id);
+  const IconComponent = classes.icon;
 
   return (
     <div
       data-drop-zone={id}
-      className={`rounded-xl border-2 border-dashed p-4 min-h-24 flex flex-col transition-all duration-200 ${classes.bg}`}
+      className={`rounded-2xl border-2 border-dashed p-5 min-h-28 flex flex-col transition-all duration-300 ${classes.bg} hover:scale-105 shadow-lg hover:shadow-xl`}
     >
-      <div className={`${classes.accent} text-white px-3 py-1 rounded-lg font-semibold text-sm mb-2 self-center`}>
-        {label}
+      <div className={`${classes.accent} text-white px-4 py-2 rounded-xl font-bold text-sm mb-3 self-center flex items-center space-x-2 shadow-md`}>
+        <IconComponent className="w-4 h-4" />
+        <span>{label}</span>
       </div>
+      
       {children && (
-        <div className="w-full flex-1">
+        <div className="w-full flex-1 space-y-2">
           {children}
+        </div>
+      )}
+      
+      {!children && (
+        <div className={`flex-1 flex items-center justify-center ${classes.text} opacity-60`}>
+          <span className="text-xs font-medium">Sleep kaart hierheen</span>
         </div>
       )}
     </div>
