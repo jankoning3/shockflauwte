@@ -40,9 +40,9 @@ const DropZone: React.FC<DropZoneProps> = ({ id, label, isActive, color, childre
           };
         } else if (categoryId === 'flauwte') {
           return {
-            bg: isActive ? 'bg-[#af27ff]/20 border-[#af27ff]' : 'bg-[#af27ff]/10 border-[#af27ff]/40',
+            bg: isActive ? 'bg-[#601f63]/20 border-[#601f63]' : 'bg-[#601f63]/10 border-[#601f63]/40',
             text: 'text-[#006072]',
-            accent: 'bg-[#af27ff]'
+            accent: 'bg-[#601f63]'
           };
         }
         // Default fallback
