@@ -38,9 +38,12 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
         
         <div className="bg-[#52bbb5]/10 rounded-lg p-4 mb-6 text-sm text-gray-700 border border-[#52bbb5]/20">
           <p className="font-semibold mb-2 text-[#006072]">Spelregels:</p>
-          <p className="leading-relaxed">
-            • Sleep kaarten naar juiste categorie • Kies eerst: Shock of Flauwte • Dan: Oorzaak, Verschijnsel of Hulp • Elke kaart telt maar één keer
-          </p>
+          <div className="space-y-1 text-left">
+            <p>• Sleep kaarten naar juiste categorie</p>
+            <p>• Kies eerst: Shock of Flauwte</p>
+            <p>• Dan: Oorzaak, Verschijnsel of Hulp</p>
+            <p>• Elke kaart telt maar één keer</p>
+          </div>
         </div>
         
         <button
