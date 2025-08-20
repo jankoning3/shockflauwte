@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Users, Clock, Play } from 'lucide-react';
 
@@ -10,41 +9,38 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#009fe3]/10 to-[#52bbb5]/10 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-xl p-8 max-w-lg w-full text-center">
-        <div className="mb-6">
-          <div className="w-40 h-40 mx-auto mb-6 flex items-center justify-center">
+        <div className="mb-4">
+          <div className="w-32 h-32 mx-auto mb-3 flex items-center justify-center">
             <img 
               src="/soliede_logo_pay-off_RGB.jpg" 
               alt="Soliede Logo" 
               className="w-full h-full object-contain rounded-lg"
             />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-2xl font-bold text-gray-900 mb-1">
             BHV Triage Spel
           </h1>
-          <p className="text-xl font-semibold text-[#009fe3]">
+          <p className="text-lg font-semibold text-[#009fe3]">
             Shock & Flauwte
           </p>
         </div>
         
-        <div className="space-y-4 mb-8 text-left">
+        <div className="space-y-3 mb-6 text-left">
           <div className="flex items-center space-x-3">
-            <Users className="w-6 h-6 text-[#009fe3]" />
-            <span className="text-gray-700 text-lg">Speel met 3 personen per apparaat</span>
+            <Users className="w-5 h-5 text-[#009fe3]" />
+            <span className="text-gray-700">Speel met 3 personen per apparaat</span>
           </div>
           <div className="flex items-center space-x-3">
-            <Clock className="w-6 h-6 text-[#009fe3]" />
-            <span className="text-gray-700 text-lg">Speeltijd: 5-10 minuten</span>
+            <Clock className="w-5 h-5 text-[#009fe3]" />
+            <span className="text-gray-700">Speeltijd: 5-10 minuten</span>
           </div>
         </div>
         
-        <div className="bg-[#52bbb5]/10 rounded-lg p-6 mb-8 text-base text-gray-700 border border-[#52bbb5]/20">
-          <p className="font-semibold mb-3 text-[#006072]">Spelregels:</p>
-          <ul className="space-y-2 text-left">
-            <li>• Sleep kaarten naar juiste categorie</li>
-            <li>• Kies eerst: Shock of Flauwte</li>
-            <li>• Dan: Oorzaak, Verschijnsel of Hulp</li>
-            <li>• Elke kaart telt maar één keer</li>
-          </ul>
+        <div className="bg-[#52bbb5]/10 rounded-lg p-4 mb-6 text-sm text-gray-700 border border-[#52bbb5]/20">
+          <p className="font-semibold mb-2 text-[#006072]">Spelregels:</p>
+          <p className="leading-relaxed">
+            • Sleep kaarten naar juiste categorie • Kies eerst: Shock of Flauwte • Dan: Oorzaak, Verschijnsel of Hulp • Elke kaart telt maar één keer
+          </p>
         </div>
         
         <button
