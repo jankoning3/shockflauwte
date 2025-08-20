@@ -104,25 +104,25 @@ const ConditionScreen: React.FC<ConditionScreenProps> = ({
   } : {};
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-blue-50 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-[#009fe3]/10 to-[#52bbb5]/10 p-4">
       <div className="max-w-lg mx-auto h-screen flex flex-col">
         <div className="flex items-center justify-between mb-6">
           <button
             onClick={onBack}
-            className="flex items-center space-x-2 text-gray-600 hover:text-gray-800"
+            className="flex items-center space-x-2 text-[#006072] hover:text-[#009fe3] transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
             <span>Terug</span>
           </button>
-          <div className="bg-white px-4 py-2 rounded-full shadow-sm">
-            <span className="text-sm font-semibold text-gray-700">
+          <div className="bg-white px-4 py-2 rounded-full shadow-sm border border-[#52bbb5]/20">
+            <span className="text-sm font-semibold text-[#006072]">
               {progress.current} van {progress.total}
             </span>
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-xl p-6 mb-6 flex-shrink-0">
-          <h2 className="text-xl font-bold text-center mb-6 text-gray-900">
+        <div className="bg-white rounded-2xl shadow-xl p-6 mb-6 flex-shrink-0 border border-[#52bbb5]/10">
+          <h2 className="text-xl font-bold text-center mb-6 text-[#006072]">
             Sleep de kaart naar de juiste conditie
           </h2>
           
