@@ -119,7 +119,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
           <div className="text-center">
             <div className="w-20 h-20 mx-auto mb-4 flex items-center justify-center">
               <img 
-                src="/soliede_logo_pay-off_RGB.jpg" 
+                src="/soliede_logo_RGB.jpg" 
                 alt="Soliede Logo" 
                 className="w-full h-full object-contain rounded-lg"
               />
