@@ -12,7 +12,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
         <div className="mb-4">
           <div className="w-32 h-32 mx-auto mb-3 flex items-center justify-center">
             <img 
-              src="/soliede_logo_RGB.jpg" 
+              src="/soliede_logo_-RGB.jpg" 
               alt="Soliede Logo" 
               className="w-full h-full object-contain rounded-lg"
             />
