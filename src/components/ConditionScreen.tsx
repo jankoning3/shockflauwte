@@ -105,7 +105,7 @@ const ConditionScreen: React.FC<ConditionScreenProps> = ({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-teal-50 p-4">
-      <div className="max-w-lg mx-auto">
+      <div className="max-w-lg mx-auto h-screen flex flex-col">
         <div className="flex items-center justify-between mb-6">
           <button
             onClick={onBack}
@@ -121,9 +121,9 @@ const ConditionScreen: React.FC<ConditionScreenProps> = ({
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-xl p-6 mb-8">
+        <div className="bg-white rounded-2xl shadow-xl p-6 mb-6 flex-shrink-0">
           <h2 className="text-xl font-bold text-center mb-6 text-gray-900">
-            Naar welke conditie behoort deze kaart?
+            Sleep de kaart naar de juiste conditie
           </h2>
           
           <div className={isDragging ? 'opacity-30' : ''}>
@@ -151,7 +151,7 @@ const ConditionScreen: React.FC<ConditionScreenProps> = ({
           )}
         </div>
 
-        <div className="space-y-4">
+        <div className="flex-1 space-y-4">
           <DropZone
             id="shock"
             label="SHOCK"

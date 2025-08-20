@@ -3,7 +3,7 @@ import { Card } from '../types';
 import GameCard from './GameCard';
 import DropZone from './DropZone';
 import { categoryLabels } from '../data/gameData';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, CheckCircle } from 'lucide-react';
 
 interface CategoryScreenProps {
   card: Card;
@@ -11,6 +11,7 @@ interface CategoryScreenProps {
   onSelection: (category: 'oorzaken' | 'verschijnselen' | 'eerste_hulp') => void;
   onBack: () => void;
   progress: { current: number; total: number };
+  correctCards: Card[];
 }
 
 const CategoryScreen: React.FC<CategoryScreenProps> = ({ 
@@ -18,7 +19,8 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({
   selectedCondition, 
   onSelection, 
   onBack,
-  progress 
+  progress,
+  correctCards
 }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [dragPosition, setDragPosition] = useState({ x: 0, y: 0 });
@@ -107,9 +109,30 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({
   const conditionColor = selectedCondition === 'shock' ? 'blue' : 'teal';
   const conditionLabel = selectedCondition.toUpperCase();
 
+  // Group correct cards by category for this condition
+  const correctCardsByCategory = correctCards
+    .filter(c => c.condition === selectedCondition)
+    .reduce((acc, card) => {
+      if (!acc[card.category]) acc[card.category] = [];
+      acc[card.category].push(card);
+      return acc;
+    }, {} as Record<string, Card[]>);
+
+  const getDropZoneColor = (category: string) => {
+    if (selectedCondition === 'shock') {
+      return category === 'oorzaken' ? 'blue' : category === 'verschijnselen' ? 'orange' : 'teal';
+    } else {
+      return category === 'oorzaken' ? 'teal' : category === 'verschijnselen' ? 'blue' : 'orange';
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-teal-50 p-4">
-      <div className="max-w-lg mx-auto">
+    <div className={`min-h-screen p-4 ${
+      selectedCondition === 'shock' 
+        ? 'bg-gradient-to-br from-blue-50 to-red-50' 
+        : 'bg-gradient-to-br from-teal-50 to-blue-50'
+    }`}>
+      <div className="max-w-lg mx-auto h-screen flex flex-col">
         <div className="flex items-center justify-between mb-6">
           <button
             onClick={onBack}
@@ -125,8 +148,8 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-xl p-6 mb-8">
-          <div className="text-center mb-4">
+        <div className="bg-white rounded-2xl shadow-xl p-4 mb-4 flex-shrink-0">
+          <div className="text-center mb-3">
             <span className={`inline-block px-4 py-2 rounded-full text-white font-semibold text-sm ${
               selectedCondition === 'shock' ? 'bg-blue-600' : 'bg-teal-600'
             }`}>
@@ -134,8 +157,8 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({
             </span>
           </div>
           
-          <h2 className="text-xl font-bold text-center mb-6 text-gray-900">
-            Tot welke categorie behoort deze kaart?
+          <h2 className="text-lg font-bold text-center mb-3 text-gray-900">
+            Sleep de kaart naar het juiste vak
           </h2>
           
           <div className={isDragging ? 'opacity-30' : ''}>
@@ -163,27 +186,48 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({
           )}
         </div>
 
-        <div className="space-y-4">
+        <div className="flex-1 space-y-3">
           <DropZone
             id="oorzaken"
             label={categoryLabels.oorzaken}
             isActive={false}
-            color="blue"
-          />
+            color={getDropZoneColor('oorzaken')}
+          >
+            {correctCardsByCategory.oorzaken && correctCardsByCategory.oorzaken.slice(0, 2).map((card, index) => (
+              <div key={index} className="flex items-center space-x-2 mb-1">
+                <CheckCircle className="w-3 h-3 text-green-600 flex-shrink-0" />
+                <span className="text-xs text-gray-600 truncate">{card.text}</span>
+              </div>
+            ))}
+          </DropZone>
           
           <DropZone
             id="verschijnselen"
             label={categoryLabels.verschijnselen}
             isActive={false}
-            color="orange"
-          />
+            color={getDropZoneColor('verschijnselen')}
+          >
+            {correctCardsByCategory.verschijnselen && correctCardsByCategory.verschijnselen.slice(0, 2).map((card, index) => (
+              <div key={index} className="flex items-center space-x-2 mb-1">
+                <CheckCircle className="w-3 h-3 text-green-600 flex-shrink-0" />
+                <span className="text-xs text-gray-600 truncate">{card.text}</span>
+              </div>
+            ))}
+          </DropZone>
           
           <DropZone
             id="eerste_hulp"
             label={categoryLabels.eerste_hulp}
             isActive={false}
-            color="teal"
-          />
+            color={getDropZoneColor('eerste_hulp')}
+          >
+            {correctCardsByCategory.eerste_hulp && correctCardsByCategory.eerste_hulp.slice(0, 2).map((card, index) => (
+              <div key={index} className="flex items-center space-x-2 mb-1">
+                <CheckCircle className="w-3 h-3 text-green-600 flex-shrink-0" />
+                <span className="text-xs text-gray-600 truncate">{card.text}</span>
+              </div>
+            ))}
+          </DropZone>
         </div>
       </div>
     </div>

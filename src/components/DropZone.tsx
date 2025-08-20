@@ -32,20 +32,15 @@ const DropZone: React.FC<DropZoneProps> = ({ id, label, isActive, color, childre
   return (
     <div
       data-drop-zone={id}
-      className={`rounded-xl border-2 border-dashed p-6 min-h-32 flex flex-col items-center justify-center transition-all duration-200 ${classes.bg}`}
+      className={`rounded-xl border-2 border-dashed p-4 min-h-24 flex flex-col transition-all duration-200 ${classes.bg}`}
     >
-      <div className={`${classes.accent} text-white px-4 py-2 rounded-lg font-semibold text-sm mb-4`}>
+      <div className={`${classes.accent} text-white px-3 py-1 rounded-lg font-semibold text-sm mb-2 self-center`}>
         {label}
       </div>
       {children && (
-        <div className="w-full">
+        <div className="w-full flex-1">
           {children}
         </div>
-      )}
-      {!children && (
-        <p className={`text-sm ${classes.text} text-center font-medium`}>
-          Sleep de kaart hierheen
-        </p>
       )}
     </div>
   );

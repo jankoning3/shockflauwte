@@ -193,6 +193,7 @@ function App() {
           onSelection={handleCategorySelection}
           onBack={handleBack}
           progress={getCurrentProgress()}
+          correctCards={gameState.correctCards}
         />
       ) : null;
     
