@@ -14,41 +14,41 @@ const DropZone: React.FC<DropZoneProps> = ({ id, label, isActive, color, childre
     switch(categoryId) {
       case 'oorzaken':
         return {
-          bg: isActive ? 'bg-[#009fe3]/20 border-[#009fe3]' : 'bg-[#009fe3]/10 border-[#009fe3]/40',
-          text: 'text-[#006072]',
-          accent: 'bg-[#009fe3]'
+          bg: isActive ? 'bg-[#006072]/20 border-[#006072]' : 'bg-[#006072]/10 border-[#006072]/40',
+          text: 'text-[#003947]',
+          accent: 'bg-[#006072]'
         };
       case 'verschijnselen':
         return {
           bg: isActive ? 'bg-[#52bbb5]/20 border-[#52bbb5]' : 'bg-[#52bbb5]/10 border-[#52bbb5]/40',
-          text: 'text-[#006072]',
+          text: 'text-[#003947]',
           accent: 'bg-[#52bbb5]'
         };
       case 'eerste_hulp':
         return {
           bg: isActive ? 'bg-[#d5ac48]/20 border-[#d5ac48]' : 'bg-[#d5ac48]/10 border-[#d5ac48]/40',
-          text: 'text-[#006072]',
+          text: 'text-[#003947]',
           accent: 'bg-[#d5ac48]'
         };
       default:
         // Fallback voor shock/flauwte keuze
         if (categoryId === 'shock') {
           return {
-            bg: isActive ? 'bg-[#278eff]/20 border-[#278eff]' : 'bg-[#278eff]/10 border-[#278eff]/40',
-            text: 'text-[#006072]',
-            accent: 'bg-[#278eff]'
+            bg: isActive ? 'bg-[#009fe3]/20 border-[#009fe3]' : 'bg-[#009fe3]/10 border-[#009fe3]/40',
+            text: 'text-[#003947]',
+            accent: 'bg-[#009fe3]'
           };
         } else if (categoryId === 'flauwte') {
           return {
             bg: isActive ? 'bg-[#601f63]/20 border-[#601f63]' : 'bg-[#601f63]/10 border-[#601f63]/40',
-            text: 'text-[#006072]',
+            text: 'text-[#003947]',
             accent: 'bg-[#601f63]'
           };
         }
         // Default fallback
         return {
           bg: isActive ? 'bg-[#009fe3]/20 border-[#009fe3]' : 'bg-[#009fe3]/10 border-[#009fe3]/40',
-          text: 'text-[#006072]',
+          text: 'text-[#003947]',
           accent: 'bg-[#009fe3]'
         };
     }
