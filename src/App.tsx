@@ -50,11 +50,11 @@ function App() {
     const isCorrect = isConditionCorrect && isCategoryCorrect;
 
     if (isCorrect) {
-      // Correct answer
+      // Correct answer - add to correct pile
       const newCorrectCards = [...gameState.correctCards, gameState.currentCard];
       
       if (gameState.remainingCards.length > 0) {
-        // More cards to go
+        // Move to next card
         setGameState(prev => ({
           ...prev,
           correctCards: newCorrectCards,
@@ -63,19 +63,8 @@ function App() {
           selectedCondition: null,
           currentScreen: 'condition'
         }));
-      } else if (gameState.incorrectCards.length > 0) {
-        // No more new cards, but we have incorrect cards to retry
-        setGameState(prev => ({
-          ...prev,
-          correctCards: newCorrectCards,
-          currentCard: prev.incorrectCards[0],
-          remainingCards: prev.incorrectCards.slice(1),
-          incorrectCards: [],
-          selectedCondition: null,
-          currentScreen: 'condition'
-        }));
       } else {
-        // All done!
+        // No more cards - show results
         setGameState(prev => ({
           ...prev,
           correctCards: newCorrectCards,
@@ -84,11 +73,11 @@ function App() {
         }));
       }
     } else {
-      // Incorrect answer - add to incorrect pile
+      // Incorrect answer - add to incorrect pile and continue
       const newIncorrectCards = [...gameState.incorrectCards, gameState.currentCard];
       
       if (gameState.remainingCards.length > 0) {
-        // More new cards to go
+        // Move to next card
         setGameState(prev => ({
           ...prev,
           incorrectCards: newIncorrectCards,
@@ -98,14 +87,12 @@ function App() {
           currentScreen: 'condition'
         }));
       } else {
-        // No more new cards, start with incorrect cards
+        // No more cards - show results
         setGameState(prev => ({
           ...prev,
-          currentCard: newIncorrectCards[0],
-          remainingCards: newIncorrectCards.slice(1),
-          incorrectCards: [],
-          selectedCondition: null,
-          currentScreen: 'condition'
+          incorrectCards: newIncorrectCards,
+          currentCard: null,
+          currentScreen: 'results'
         }));
       }
     }
