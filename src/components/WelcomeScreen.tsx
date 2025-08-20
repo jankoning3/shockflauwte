@@ -7,8 +7,8 @@ interface WelcomeScreenProps {
 
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#009fe3]/10 to-[#52bbb5]/10 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-xl p-8 max-w-lg w-full text-center">
+    <div className="min-h-screen bg-gradient-to-br from-[#009fe3]/10 to-[#52bbb5]/10 flex items-center justify-center p-2">
+      <div className="bg-white rounded-2xl shadow-xl p-4 max-w-lg w-full text-center">
         <div className="mb-4">
           <div className="w-48 h-48 mx-auto mb-3 flex items-center justify-center">
             <img 
