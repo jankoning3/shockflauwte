@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from '../types';
-import { Trophy, RotateCcw, CheckCircle, XCircle, Play, Heart, AlertTriangle } from 'lucide-react';
+import { RotateCcw, CheckCircle, XCircle, Play, Heart, AlertTriangle } from 'lucide-react';
 import { calculateScore, getScoreMessage } from '../utils/gameUtils';
 import { categoryLabels } from '../data/gameData';
 
@@ -63,13 +63,17 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-teal-50 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-blue-50 p-4">
       <div className="max-w-4xl mx-auto">
         {/* Header with score */}
         <div className="bg-white rounded-2xl shadow-xl p-6 mb-6">
           <div className="text-center">
-            <div className="bg-blue-600 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-              <Trophy className="w-8 h-8 text-white" />
+            <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+              <img 
+                src="/soliede_logo_pay-off_RGB.jpg" 
+                alt="Soliede Logo" 
+                className="w-full h-full object-contain rounded-lg"
+              />
             </div>
             
             <h1 className="text-2xl font-bold text-gray-900 mb-2">
@@ -158,7 +162,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
           {incorrectCards.length > 0 && (
             <button
               onClick={onRetryIncorrect}
-              className="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center space-x-2"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center space-x-2"
             >
               <RotateCcw className="w-5 h-5" />
               <span>Oefen foute kaarten ({incorrectCards.length})</span>
@@ -167,7 +171,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
           
           <button
             onClick={onRestart}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center space-x-2"
+            className="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center space-x-2"
           >
             <Play className="w-5 h-5" />
             <span>Nieuw Spel Starten</span>
@@ -175,7 +179,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
         </div>
 
         {score === 100 && (
-          <div className="mt-4 bg-gradient-to-r from-blue-50 to-teal-50 rounded-lg p-4 text-center">
+          <div className="mt-4 bg-gradient-to-r from-orange-50 to-blue-50 rounded-lg p-4 text-center">
             <p className="text-sm text-gray-700 font-medium">
               🎯 Perfect! Je beheerst het onderscheid tussen shock en flauwte volledig!
             </p>

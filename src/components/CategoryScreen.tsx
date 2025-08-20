@@ -120,17 +120,17 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({
 
   const getDropZoneColor = (category: string) => {
     if (selectedCondition === 'shock') {
-      return category === 'oorzaken' ? 'blue' : category === 'verschijnselen' ? 'orange' : 'teal';
+      return category === 'oorzaken' ? 'blue' : category === 'verschijnselen' ? 'orange' : 'green';
     } else {
-      return category === 'oorzaken' ? 'teal' : category === 'verschijnselen' ? 'blue' : 'orange';
+      return category === 'oorzaken' ? 'teal' : category === 'verschijnselen' ? 'blue' : 'green';
     }
   };
 
   return (
     <div className={`min-h-screen p-4 ${
       selectedCondition === 'shock' 
-        ? 'bg-gradient-to-br from-blue-50 to-red-50' 
-        : 'bg-gradient-to-br from-teal-50 to-blue-50'
+        ? 'bg-gradient-to-br from-orange-50 to-blue-50' 
+        : 'bg-gradient-to-br from-orange-50 to-teal-50'
     }`}>
       <div className="max-w-lg mx-auto h-screen flex flex-col">
         <div className="flex items-center justify-between mb-6">

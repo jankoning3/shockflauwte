@@ -4,7 +4,7 @@ interface DropZoneProps {
   id: string;
   label: string;
   isActive: boolean;
-  color: 'blue' | 'teal' | 'orange';
+  color: 'blue' | 'teal' | 'orange' | 'green';
   children?: React.ReactNode;
 }
 
@@ -24,6 +24,11 @@ const DropZone: React.FC<DropZoneProps> = ({ id, label, isActive, color, childre
       bg: isActive ? 'bg-orange-100 border-orange-400' : 'bg-orange-50 border-orange-200',
       text: 'text-orange-800',
       accent: 'bg-orange-600'
+    },
+    green: {
+      bg: isActive ? 'bg-green-100 border-green-400' : 'bg-green-50 border-green-200',
+      text: 'text-green-800',
+      accent: 'bg-green-600'
     }
   };
 

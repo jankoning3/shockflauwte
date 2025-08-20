@@ -104,7 +104,7 @@ const ConditionScreen: React.FC<ConditionScreenProps> = ({
   } : {};
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-teal-50 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-blue-50 p-4">
       <div className="max-w-lg mx-auto h-screen flex flex-col">
         <div className="flex items-center justify-between mb-6">
           <button
