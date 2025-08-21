@@ -20,7 +20,7 @@ const GameCard: React.FC<GameCardProps> = ({
 }) => {
   return (
     <div
-      className={`bg-white rounded-xl shadow-md border-2 border-gray-200 p-4 cursor-move select-none transition-all duration-200 aspect-[1.586/1] flex items-center justify-center ${
+      className={`bg-white rounded-xl shadow-md border-2 border-gray-200 p-6 cursor-move select-none transition-all duration-200 ${
         isDragging 
           ? 'shadow-xl border-blue-400 scale-105 z-50' 
           : 'hover:shadow-lg hover:border-gray-300'
@@ -37,7 +37,7 @@ const GameCard: React.FC<GameCardProps> = ({
         msUserSelect: 'none'
       }}
     >
-      <p className="text-gray-800 text-center font-medium leading-tight text-sm">
+      <p className="text-gray-800 text-center font-medium leading-relaxed">
         {card.text}
       </p>
     </div>

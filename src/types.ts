@@ -13,8 +13,6 @@ export interface GameState {
   incorrectCards: Card[];
   selectedCondition: 'shock' | 'flauwte' | null;
   gameStarted: boolean;
-  allTimeCorrectCards: Card[];
-  allTimeIncorrectCards: Card[];
 }
 
 export interface DragState {

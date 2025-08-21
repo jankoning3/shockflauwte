@@ -7,8 +7,6 @@ import { categoryLabels } from '../data/gameData';
 interface ResultsScreenProps {
   correctCards: Card[];
   incorrectCards: Card[];
-  allTimeCorrectCards: Card[];
-  allTimeIncorrectCards: Card[];
   totalCards: number;
   onRestart: () => void;
   onRetryIncorrect: () => void;
@@ -17,16 +15,10 @@ interface ResultsScreenProps {
 const ResultsScreen: React.FC<ResultsScreenProps> = ({ 
   correctCards, 
   incorrectCards, 
-  allTimeCorrectCards,
-  allTimeIncorrectCards,
   totalCards, 
   onRestart, 
   onRetryIncorrect 
 }) => {
-  // Use all-time results for display, but current session for score calculation
-  const displayCorrectCards = allTimeCorrectCards.length > 0 ? allTimeCorrectCards : correctCards;
-  const displayIncorrectCards = allTimeIncorrectCards.length > 0 ? allTimeIncorrectCards : incorrectCards;
-  
   const score = calculateScore(correctCards.length, totalCards);
   const message = getScoreMessage(score);
 
@@ -46,8 +38,8 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
     return grouped;
   };
 
-  const correctGrouped = groupCardsByConditionAndCategory(displayCorrectCards);
-  const incorrectGrouped = groupCardsByConditionAndCategory(displayIncorrectCards);
+  const correctGrouped = groupCardsByConditionAndCategory(correctCards);
+  const incorrectGrouped = groupCardsByConditionAndCategory(incorrectCards);
 
   const getCategoryColor = (category: string) => {
     switch(category) {
@@ -148,7 +140,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
                   <span className="font-semibold text-[#006072]">Correct</span>
                 </div>
                 <p className="text-2xl font-bold text-[#52bbb5]">
-                  {displayCorrectCards.length}
+                  {correctCards.length}
                 </p>
               </div>
               
@@ -158,7 +150,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
                   <span className="font-semibold text-red-700">Fout</span>
                 </div>
                 <p className="text-2xl font-bold text-red-500">
-                  {displayIncorrectCards.length}
+                  {incorrectCards.length}
                 </p>
               </div>
             </div>

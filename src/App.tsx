@@ -14,9 +14,7 @@ function App() {
     correctCards: [],
     incorrectCards: [],
     selectedCondition: null,
-    gameStarted: false,
-    allTimeCorrectCards: [],
-    allTimeIncorrectCards: []
+    gameStarted: false
   });
 
   const initializeGame = (cards?: Card[]) => {
@@ -28,9 +26,7 @@ function App() {
       correctCards: [],
       incorrectCards: [],
       selectedCondition: null,
-      gameStarted: true,
-      allTimeCorrectCards: gameState.allTimeCorrectCards,
-      allTimeIncorrectCards: gameState.allTimeIncorrectCards
+      gameStarted: true
     });
   };
 
@@ -56,14 +52,12 @@ function App() {
     if (isCorrect) {
       // Correct answer - add to correct pile
       const newCorrectCards = [...gameState.correctCards, gameState.currentCard];
-      const newAllTimeCorrectCards = [...gameState.allTimeCorrectCards, gameState.currentCard];
       
       if (gameState.remainingCards.length > 0) {
         // Move to next card
         setGameState(prev => ({
           ...prev,
           correctCards: newCorrectCards,
-          allTimeCorrectCards: newAllTimeCorrectCards,
           currentCard: prev.remainingCards[0],
           remainingCards: prev.remainingCards.slice(1),
           selectedCondition: null,
@@ -74,7 +68,6 @@ function App() {
         setGameState(prev => ({
           ...prev,
           correctCards: newCorrectCards,
-          allTimeCorrectCards: newAllTimeCorrectCards,
           currentCard: null,
           currentScreen: 'results'
         }));
@@ -82,14 +75,12 @@ function App() {
     } else {
       // Incorrect answer - add to incorrect pile and continue
       const newIncorrectCards = [...gameState.incorrectCards, gameState.currentCard];
-      const newAllTimeIncorrectCards = [...gameState.allTimeIncorrectCards, gameState.currentCard];
       
       if (gameState.remainingCards.length > 0) {
         // Move to next card
         setGameState(prev => ({
           ...prev,
           incorrectCards: newIncorrectCards,
-          allTimeIncorrectCards: newAllTimeIncorrectCards,
           currentCard: prev.remainingCards[0],
           remainingCards: prev.remainingCards.slice(1),
           selectedCondition: null,
@@ -100,7 +91,6 @@ function App() {
         setGameState(prev => ({
           ...prev,
           incorrectCards: newIncorrectCards,
-          allTimeIncorrectCards: newAllTimeIncorrectCards,
           currentCard: null,
           currentScreen: 'results'
         }));
@@ -123,11 +113,7 @@ function App() {
         correctCards: [],
         incorrectCards: [],
         selectedCondition: null,
-        gameStarted: false,
-        allTimeCorrectCards: [],
-        allTimeIncorrectCards: []
-        allTimeCorrectCards: [],
-        allTimeIncorrectCards: []
+        gameStarted: false
       });
     }
   };
@@ -140,9 +126,7 @@ function App() {
       correctCards: [],
       incorrectCards: [],
       selectedCondition: null,
-      gameStarted: false,
-      allTimeCorrectCards: [],
-      allTimeIncorrectCards: []
+      gameStarted: false
     });
   };
 
@@ -205,8 +189,6 @@ function App() {
         <ResultsScreen
           correctCards={gameState.correctCards}
           incorrectCards={gameState.incorrectCards}
-          allTimeCorrectCards={gameState.allTimeCorrectCards}
-          allTimeIncorrectCards={gameState.allTimeIncorrectCards}
           totalCards={getTotalCards()}
           onRestart={handleRestart}
           onRetryIncorrect={handleRetryIncorrect}
