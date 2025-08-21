@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from '../types';
-import { RotateCcw, CheckCircle, XCircle, Play } from 'lucide-react';
+import { RotateCcw, CheckCircle, XCircle, Play, Minus } from 'lucide-react';
 import { categoryLabels } from '../data/gameData';
 
 interface ResultsScreenProps {
@@ -77,6 +77,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
         return <Minus className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />;
     }
   };
+  
   const renderConditionSection = (condition: 'shock' | 'flauwte') => {
     const conditionColor = condition === 'shock' ? '#009fe3' : '#601f63';
     const categories = ['oorzaken', 'verschijnselen', 'eerste_hulp'];
