@@ -44,7 +44,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
   const getCategoryColor = (category: string) => {
     switch(category) {
       case 'oorzaken':
-        return 'bg-[#009fe3]';
+        return 'bg-[#006072]';
       case 'verschijnselen':
         return 'bg-[#52bbb5]';
       case 'eerste_hulp':
