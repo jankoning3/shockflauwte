@@ -107,6 +107,7 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({
   } : {};
 
   const conditionColor = selectedCondition === 'shock' ? '#009fe3' : '#52bbb5';
+  const conditionColorFlauwte = selectedCondition === 'flauwte' ? '#601f63' : conditionColor;
   const conditionLabel = selectedCondition.toUpperCase();
 
   // Group correct cards by category for this condition
@@ -151,7 +152,7 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({
         <div className="bg-white rounded-2xl shadow-xl p-4 mb-4 flex-shrink-0 border border-[#52bbb5]/10">
           <div className="text-center mb-3">
             <span className={`inline-block px-4 py-2 rounded-full text-white font-semibold text-sm`}
-                  style={{ backgroundColor: conditionColor }}>
+                  style={{ backgroundColor: selectedCondition === 'flauwte' ? '#601f63' : conditionColor }}>
               {conditionLabel}
             </span>
           </div>
