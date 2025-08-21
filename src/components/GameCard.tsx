@@ -22,7 +22,7 @@ const GameCard: React.FC<GameCardProps> = ({
     <div
       className={`bg-white rounded-xl shadow-md border-2 border-gray-200 p-6 cursor-move select-none transition-all duration-200 ${
         isDragging 
-          ? 'shadow-xl border-blue-400 scale-105 z-50' 
+          ? 'shadow-xl border-blue-400 scale-105 z-70' 
           : 'hover:shadow-lg hover:border-gray-300'
       }`}
       onTouchStart={onTouchStart}
