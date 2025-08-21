@@ -36,14 +36,3 @@ export const selectRandomCards = (totalCards: number = 24): Card[] => {
   // Shuffle de finale selectie
   return shuffleArray(selectedCards);
 };
-
-export const calculateScore = (correct: number, total: number): number => {
-  return Math.round((correct / total) * 100);
-};
-
-export const getScoreMessage = (score: number): string => {
-  if (score === 100) return 'Uitstekend! Perfect resultaat! 🎉';
-  if (score >= 80) return 'Heel goed! Bijna alles correct! 👍';
-  if (score >= 60) return 'Goed bezig! Nog even oefenen! 💪';
-  return 'Ga vooral door met oefenen! 📚';
-};

@@ -3,6 +3,7 @@ export interface Card {
   text: string;
   condition: 'shock' | 'flauwte';
   category: 'oorzaken' | 'verschijnselen' | 'eerste_hulp';
+  status?: 'correct' | 'incorrect' | 'not_practiced';
 }
 
 export interface GameState {
@@ -13,6 +14,7 @@ export interface GameState {
   incorrectCards: Card[];
   selectedCondition: 'shock' | 'flauwte' | null;
   gameStarted: boolean;
+  allCards: Card[];
 }
 
 export interface DragState {

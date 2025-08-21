@@ -1,24 +1,36 @@
 import React from 'react';
 import { Card } from '../types';
 import { RotateCcw, CheckCircle, XCircle, Play } from 'lucide-react';
-import { calculateScore, getScoreMessage } from '../utils/gameUtils';
 import { categoryLabels } from '../data/gameData';
 
 interface ResultsScreenProps {
-  correctCards: Card[];
-  incorrectCards: Card[];
-  totalCards: number;
+  allCards: Card[];
   onRestart: () => void;
   onRetryIncorrect: () => void;
 }
 
 const ResultsScreen: React.FC<ResultsScreenProps> = ({ 
-  correctCards, 
-  incorrectCards, 
-  totalCards, 
+  allCards,
   onRestart, 
   onRetryIncorrect 
 }) => {
+  // Calculate statistics from all cards
+  const correctCards = allCards.filter(card => card.status === 'correct');
+  const incorrectCards = allCards.filter(card => card.status === 'incorrect');
+  const notPracticedCards = allCards.filter(card => card.status === 'not_practiced');
+  const totalCards = allCards.length;
+  
+  const calculateScore = (correct: number, total: number): number => {
+    return Math.round((correct / total) * 100);
+  };
+  
+  const getScoreMessage = (score: number): string => {
+    if (score === 100) return 'Uitstekend! Perfect resultaat! 🎉';
+    if (score >= 80) return 'Heel goed! Bijna alles correct! 👍';
+    if (score >= 60) return 'Goed bezig! Nog even oefenen! 💪';
+    return 'Ga vooral door met oefenen! 📚';
+  };
+  
   const score = calculateScore(correctCards.length, totalCards);
   const message = getScoreMessage(score);
 
@@ -38,8 +50,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
     return grouped;
   };
 
-  const correctGrouped = groupCardsByConditionAndCategory(correctCards);
-  const incorrectGrouped = groupCardsByConditionAndCategory(incorrectCards);
+  const allCardsGrouped = groupCardsByConditionAndCategory(allCards);
 
   const getCategoryColor = (category: string) => {
     switch(category) {
@@ -54,6 +65,18 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
     }
   };
 
+  const getStatusIcon = (status: string) => {
+    switch(status) {
+      case 'correct':
+        return <CheckCircle className="w-4 h-4 text-[#52bbb5] mt-0.5 flex-shrink-0" />;
+      case 'incorrect':
+        return <XCircle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />;
+      case 'not_practiced':
+        return <Minus className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />;
+      default:
+        return <Minus className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />;
+    }
+  };
   const renderConditionSection = (condition: 'shock' | 'flauwte') => {
     const conditionColor = condition === 'shock' ? '#009fe3' : '#601f63';
     const categories = ['oorzaken', 'verschijnselen', 'eerste_hulp'];
@@ -71,9 +94,11 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
         
         <div className="space-y-4">
           {categories.map(category => {
-            const correct = correctGrouped[condition][category] || [];
-            const incorrect = incorrectGrouped[condition][category] || [];
-            const total = correct.length + incorrect.length;
+            const categoryCards = allCardsGrouped[condition][category] || [];
+            const correct = categoryCards.filter(card => card.status === 'correct');
+            const incorrect = categoryCards.filter(card => card.status === 'incorrect');
+            const notPracticed = categoryCards.filter(card => card.status === 'not_practiced');
+            const total = categoryCards.length;
             
             if (total === 0) return null;
             
@@ -84,21 +109,14 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
                     {categoryLabels[category as keyof typeof categoryLabels]}
                   </div>
                   <div className="text-sm font-semibold text-[#006072]">
-                    {correct.length}/{total} correct
+                    {correct.length}/{total}
                   </div>
                 </div>
                 
                 <div className="space-y-2">
-                  {correct.map((card, index) => (
-                    <div key={`correct-${index}`} className="flex items-start space-x-2 text-sm">
-                      <CheckCircle className="w-4 h-4 text-[#52bbb5] mt-0.5 flex-shrink-0" />
-                      <span className="text-[#006072] leading-tight">{card.text}</span>
-                    </div>
-                  ))}
-                  
-                  {incorrect.map((card, index) => (
-                    <div key={`incorrect-${index}`} className="flex items-start space-x-2 text-sm">
-                      <XCircle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
+                  {categoryCards.map((card, index) => (
+                    <div key={`card-${index}`} className="flex items-start space-x-2 text-sm">
+                      {getStatusIcon(card.status || 'not_practiced')}
                       <span className="text-[#006072] leading-tight">{card.text}</span>
                     </div>
                   ))}
@@ -133,7 +151,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
               {message}
             </p>
             
-            <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="grid grid-cols-3 gap-4 mb-4">
               <div className="bg-[#52bbb5]/10 rounded-lg p-4 border border-[#52bbb5]/20">
                 <div className="flex items-center justify-center space-x-2 mb-2">
                   <CheckCircle className="w-5 h-5 text-[#52bbb5]" />
@@ -151,6 +169,16 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
                 </div>
                 <p className="text-2xl font-bold text-red-500">
                   {incorrectCards.length}
+                </p>
+              </div>
+              
+              <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                <div className="flex items-center justify-center space-x-2 mb-2">
+                  <Minus className="w-5 h-5 text-gray-400" />
+                  <span className="font-semibold text-gray-600">Niet geoefend</span>
+                </div>
+                <p className="text-2xl font-bold text-gray-400">
+                  {notPracticedCards.length}
                 </p>
               </div>
             </div>

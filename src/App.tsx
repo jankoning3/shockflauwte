@@ -5,6 +5,7 @@ import ConditionScreen from './components/ConditionScreen';
 import CategoryScreen from './components/CategoryScreen';
 import ResultsScreen from './components/ResultsScreen';
 import { selectRandomCards } from './utils/gameUtils';
+import { gameCards } from './data/gameData';
 
 function App() {
   const [gameState, setGameState] = useState<GameState>({
@@ -14,7 +15,8 @@ function App() {
     correctCards: [],
     incorrectCards: [],
     selectedCondition: null,
-    gameStarted: false
+    gameStarted: false,
+    allCards: gameCards.map(card => ({ ...card, status: 'not_practiced' as const }))
   });
 
   const initializeGame = (cards?: Card[]) => {
@@ -26,11 +28,17 @@ function App() {
       correctCards: [],
       incorrectCards: [],
       selectedCondition: null,
-      gameStarted: true
+      gameStarted: true,
+      allCards: gameState.allCards
     });
   };
 
   const handleStart = () => {
+    // Reset all cards to not_practiced when starting a new game
+    setGameState(prev => ({
+      ...prev,
+      allCards: gameCards.map(card => ({ ...card, status: 'not_practiced' as const }))
+    }));
     initializeGame();
   };
 
@@ -49,6 +57,12 @@ function App() {
     const isCategoryCorrect = gameState.currentCard.category === category;
     const isCorrect = isConditionCorrect && isCategoryCorrect;
 
+    // Update the status of the current card in allCards
+    const updatedAllCards = gameState.allCards.map(card => 
+      card.id === gameState.currentCard!.id 
+        ? { ...card, status: isCorrect ? 'correct' as const : 'incorrect' as const }
+        : card
+    );
     if (isCorrect) {
       // Correct answer - add to correct pile
       const newCorrectCards = [...gameState.correctCards, gameState.currentCard];
@@ -61,7 +75,8 @@ function App() {
           currentCard: prev.remainingCards[0],
           remainingCards: prev.remainingCards.slice(1),
           selectedCondition: null,
-          currentScreen: 'condition'
+          currentScreen: 'condition',
+          allCards: updatedAllCards
         }));
       } else {
         // No more cards - show results
@@ -69,7 +84,8 @@ function App() {
           ...prev,
           correctCards: newCorrectCards,
           currentCard: null,
-          currentScreen: 'results'
+          currentScreen: 'results',
+          allCards: updatedAllCards
         }));
       }
     } else {
@@ -84,7 +100,8 @@ function App() {
           currentCard: prev.remainingCards[0],
           remainingCards: prev.remainingCards.slice(1),
           selectedCondition: null,
-          currentScreen: 'condition'
+          currentScreen: 'condition',
+          allCards: updatedAllCards
         }));
       } else {
         // No more cards - show results
@@ -92,7 +109,8 @@ function App() {
           ...prev,
           incorrectCards: newIncorrectCards,
           currentCard: null,
-          currentScreen: 'results'
+          currentScreen: 'results',
+          allCards: updatedAllCards
         }));
       }
     }
@@ -113,7 +131,8 @@ function App() {
         correctCards: [],
         incorrectCards: [],
         selectedCondition: null,
-        gameStarted: false
+        gameStarted: false,
+        allCards: gameState.allCards
       });
     }
   };
@@ -126,13 +145,16 @@ function App() {
       correctCards: [],
       incorrectCards: [],
       selectedCondition: null,
-      gameStarted: false
+      gameStarted: false,
+      allCards: gameCards.map(card => ({ ...card, status: 'not_practiced' as const }))
     });
   };
 
   const handleRetryIncorrect = () => {
-    if (gameState.incorrectCards.length > 0) {
-      initializeGame(gameState.incorrectCards);
+    // Get cards that are marked as incorrect from allCards
+    const incorrectCards = gameState.allCards.filter(card => card.status === 'incorrect');
+    if (incorrectCards.length > 0) {
+      initializeGame(incorrectCards);
     }
   };
 
@@ -187,9 +209,7 @@ function App() {
     case 'results':
       return (
         <ResultsScreen
-          correctCards={gameState.correctCards}
-          incorrectCards={gameState.incorrectCards}
-          totalCards={getTotalCards()}
+          allCards={gameState.allCards}
           onRestart={handleRestart}
           onRetryIncorrect={handleRetryIncorrect}
         />
