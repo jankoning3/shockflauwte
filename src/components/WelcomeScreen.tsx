@@ -40,9 +40,9 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
         <div className="bg-[#52bbb5]/10 rounded-lg p-4 mb-6 text-sm text-gray-700 border border-[#52bbb5]/20">
           <p className="font-semibold mb-2 text-[#006072]">Spelregels:</p>
           <div className="space-y-1 text-left">
-            <p>• Sleep kaarten naar juiste plek</p>
-            <p>• Stap 1: Shock of Flauwte</p>
-            <p>• Stap 2: Oorzaak, verschijnsel of eerste hulp</p>
+            <p>Sleep kaarten naar juiste plek</p>
+            <p>Stap 1: Shock of Flauwte</p>
+            <p>Stap 2: Oorzaak, verschijnsel of eerste hulp</p>
           </div>
         </div>
         
