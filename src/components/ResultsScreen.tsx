@@ -55,7 +55,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
   };
 
   const renderConditionSection = (condition: 'shock' | 'flauwte') => {
-    const conditionColor = condition === 'shock' ? '#009fe3' : '#52bbb5';
+    const conditionColor = condition === 'shock' ? '#009fe3' : '#601f63';
     const categories = ['oorzaken', 'verschijnselen', 'eerste_hulp'];
     
     return (
