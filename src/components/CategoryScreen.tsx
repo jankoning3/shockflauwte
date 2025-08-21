@@ -155,11 +155,7 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({
               {conditionLabel}
             </span>
           </div>
-          
-          <h2 className="text-lg font-bold text-center mb-3 text-[#006072]">
-            Sleep de kaart naar het juiste vak
-          </h2>
-          
+                   
           <div className={isDragging ? 'opacity-30' : ''}>
             <GameCard
               card={card}
