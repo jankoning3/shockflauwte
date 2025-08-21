@@ -29,7 +29,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
         <div className="space-y-3 mb-6 text-left">
           <div className="flex items-center space-x-3">
             <Users className="w-5 h-5 text-[#009fe3]" />
-            <span className="text-gray-700">Speel met 3 personen per apparaat</span>
+            <span className="text-gray-700">Speel met 3 personen </span>
           </div>
           <div className="flex items-center space-x-3">
             <Clock className="w-5 h-5 text-[#009fe3]" />
@@ -40,10 +40,9 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
         <div className="bg-[#52bbb5]/10 rounded-lg p-4 mb-6 text-sm text-gray-700 border border-[#52bbb5]/20">
           <p className="font-semibold mb-2 text-[#006072]">Spelregels:</p>
           <div className="space-y-1 text-left">
-            <p>• Sleep kaarten naar juiste categorie</p>
-            <p>• Kies eerst: Shock of Flauwte</p>
-            <p>• Dan: Oorzaak, Verschijnsel of Hulp</p>
-            <p>• Elke kaart telt maar één keer</p>
+            <p>• Sleep kaarten naar juiste plek</p>
+            <p>• Stap 1: Shock of Flauwte</p>
+            <p>• Stap 2: Oorzaak, verschijnsel of eerste hulp</p>
           </div>
         </div>
         
