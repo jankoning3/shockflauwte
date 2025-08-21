@@ -42,7 +42,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
           <div className="space-y-1 text-left">
             <p>Sleep kaarten naar juiste plek</p>
             <p>Stap 1: Shock of Flauwte</p>
-            <p>Stap 2: Oorzaak, verschijnsel of eerste hulp</p>
+            <p>Stap 2: Oorzaak, verschijnsel of hulp</p>
           </div>
         </div>
         
