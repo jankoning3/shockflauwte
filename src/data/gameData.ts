@@ -406,7 +406,7 @@ export const englishGameCards: Card[] = [
   // Shock - First Aid
   {
     id: 'shock-hulp-1',
-    text: 'Call 911',
+    text: 'Call 112',
     condition: 'shock',
     category: 'eerste_hulp'
   },
@@ -598,7 +598,7 @@ export const englishGameCards: Card[] = [
   },
   {
     id: 'flauwte-hulp-8',
-    text: 'If no recovery: call 911',
+    text: 'If no recovery: call 112',
     condition: 'flauwte',
     category: 'eerste_hulp'
   }
