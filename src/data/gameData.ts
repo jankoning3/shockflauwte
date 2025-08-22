@@ -302,6 +302,312 @@ export const gameCards: Card[] = [
   }
 ];
 
+export const englishGameCards: Card[] = [
+  // Shock - Causes
+  {
+    id: 'shock-oorzaak-1',
+    text: 'Severe blood loss',
+    condition: 'shock',
+    category: 'oorzaken'
+  },
+  {
+    id: 'shock-oorzaak-2',
+    text: 'Burns over large body surface',
+    condition: 'shock',
+    category: 'oorzaken'
+  },
+  {
+    id: 'shock-oorzaak-3',
+    text: 'Serious injuries',
+    condition: 'shock',
+    category: 'oorzaken'
+  },
+  {
+    id: 'shock-oorzaak-4',
+    text: 'Allergic reaction',
+    condition: 'shock',
+    category: 'oorzaken'
+  },
+  {
+    id: 'shock-oorzaak-5',
+    text: 'Heart attack',
+    condition: 'shock',
+    category: 'oorzaken'
+  },
+  {
+    id: 'shock-oorzaak-6',
+    text: 'Poisoning',
+    condition: 'shock',
+    category: 'oorzaken'
+  },
+  {
+    id: 'shock-oorzaak-7',
+    text: 'Severe infection',
+    condition: 'shock',
+    category: 'oorzaken'
+  },
+  {
+    id: 'shock-oorzaak-8',
+    text: 'Major fluid loss from vomiting/diarrhea',
+    condition: 'shock',
+    category: 'oorzaken'
+  },
+
+  // Shock - Symptoms
+  {
+    id: 'shock-verschijnsel-1',
+    text: 'Pale and cold',
+    condition: 'shock',
+    category: 'verschijnselen'
+  },
+  {
+    id: 'shock-verschijnsel-2',
+    text: 'Fast, weak pulse',
+    condition: 'shock',
+    category: 'verschijnselen'
+  },
+  {
+    id: 'shock-verschijnsel-3',
+    text: 'Shallow breathing',
+    condition: 'shock',
+    category: 'verschijnselen'
+  },
+  {
+    id: 'shock-verschijnsel-4',
+    text: 'Thirsty',
+    condition: 'shock',
+    category: 'verschijnselen'
+  },
+  {
+    id: 'shock-verschijnsel-5',
+    text: 'Restless and anxious',
+    condition: 'shock',
+    category: 'verschijnselen'
+  },
+  {
+    id: 'shock-verschijnsel-6',
+    text: 'Sweating',
+    condition: 'shock',
+    category: 'verschijnselen'
+  },
+  {
+    id: 'shock-verschijnsel-7',
+    text: 'Nausea',
+    condition: 'shock',
+    category: 'verschijnselen'
+  },
+  {
+    id: 'shock-verschijnsel-8',
+    text: 'Reduced consciousness',
+    condition: 'shock',
+    category: 'verschijnselen'
+  },
+
+  // Shock - First Aid
+  {
+    id: 'shock-hulp-1',
+    text: 'Call 911',
+    condition: 'shock',
+    category: 'eerste_hulp'
+  },
+  {
+    id: 'shock-hulp-2',
+    text: 'Keep victim lying down',
+    condition: 'shock',
+    category: 'eerste_hulp'
+  },
+  {
+    id: 'shock-hulp-3',
+    text: 'Elevate legs (shock position)',
+    condition: 'shock',
+    category: 'eerste_hulp'
+  },
+  {
+    id: 'shock-hulp-4',
+    text: 'Keep warm with blanket',
+    condition: 'shock',
+    category: 'eerste_hulp'
+  },
+  {
+    id: 'shock-hulp-5',
+    text: 'Stop bleeding',
+    condition: 'shock',
+    category: 'eerste_hulp'
+  },
+  {
+    id: 'shock-hulp-6',
+    text: 'Do not give food or drink',
+    condition: 'shock',
+    category: 'eerste_hulp'
+  },
+  {
+    id: 'shock-hulp-7',
+    text: 'Reassure',
+    condition: 'shock',
+    category: 'eerste_hulp'
+  },
+  {
+    id: 'shock-hulp-8',
+    text: 'Monitor consciousness',
+    condition: 'shock',
+    category: 'eerste_hulp'
+  },
+
+  // Fainting - Causes
+  {
+    id: 'flauwte-oorzaak-1',
+    text: 'Emotional shock',
+    condition: 'flauwte',
+    category: 'oorzaken'
+  },
+  {
+    id: 'flauwte-oorzaak-2',
+    text: 'Poor ventilation',
+    condition: 'flauwte',
+    category: 'oorzaken'
+  },
+  {
+    id: 'flauwte-oorzaak-3',
+    text: 'Standing for long time',
+    condition: 'flauwte',
+    category: 'oorzaken'
+  },
+  {
+    id: 'flauwte-oorzaak-4',
+    text: 'Low blood sugar',
+    condition: 'flauwte',
+    category: 'oorzaken'
+  },
+  {
+    id: 'flauwte-oorzaak-5',
+    text: 'Exhaustion',
+    condition: 'flauwte',
+    category: 'oorzaken'
+  },
+  {
+    id: 'flauwte-oorzaak-6',
+    text: 'Standing up quickly',
+    condition: 'flauwte',
+    category: 'oorzaken'
+  },
+  {
+    id: 'flauwte-oorzaak-7',
+    text: 'Heat',
+    condition: 'flauwte',
+    category: 'oorzaken'
+  },
+  {
+    id: 'flauwte-oorzaak-8',
+    text: 'Fear or stress',
+    condition: 'flauwte',
+    category: 'oorzaken'
+  },
+
+  // Fainting - Symptoms
+  {
+    id: 'flauwte-verschijnsel-1',
+    text: 'Dizzy',
+    condition: 'flauwte',
+    category: 'verschijnselen'
+  },
+  {
+    id: 'flauwte-verschijnsel-2',
+    text: 'Nauseous',
+    condition: 'flauwte',
+    category: 'verschijnselen'
+  },
+  {
+    id: 'flauwte-verschijnsel-3',
+    text: 'Weak feeling',
+    condition: 'flauwte',
+    category: 'verschijnselen'
+  },
+  {
+    id: 'flauwte-verschijnsel-4',
+    text: 'Sweaty',
+    condition: 'flauwte',
+    category: 'verschijnselen'
+  },
+  {
+    id: 'flauwte-verschijnsel-5',
+    text: 'Brief loss of consciousness',
+    condition: 'flauwte',
+    category: 'verschijnselen'
+  },
+  {
+    id: 'flauwte-verschijnsel-6',
+    text: 'Normal pulse after recovery',
+    condition: 'flauwte',
+    category: 'verschijnselen'
+  },
+  {
+    id: 'flauwte-verschijnsel-7',
+    text: 'Quick recovery when lying down',
+    condition: 'flauwte',
+    category: 'verschijnselen'
+  },
+  {
+    id: 'flauwte-verschijnsel-8',
+    text: 'Blurred vision',
+    condition: 'flauwte',
+    category: 'verschijnselen'
+  },
+
+  // Fainting - First Aid
+  {
+    id: 'flauwte-hulp-1',
+    text: 'Head between knees',
+    condition: 'flauwte',
+    category: 'eerste_hulp'
+  },
+  {
+    id: 'flauwte-hulp-2',
+    text: 'Provide fresh air',
+    condition: 'flauwte',
+    category: 'eerste_hulp'
+  },
+  {
+    id: 'flauwte-hulp-3',
+    text: 'Elevate legs when lying',
+    condition: 'flauwte',
+    category: 'eerste_hulp'
+  },
+  {
+    id: 'flauwte-hulp-4',
+    text: 'Loosen clothing',
+    condition: 'flauwte',
+    category: 'eerste_hulp'
+  },
+  {
+    id: 'flauwte-hulp-5',
+    text: 'Let stand up slowly',
+    condition: 'flauwte',
+    category: 'eerste_hulp'
+  },
+  {
+    id: 'flauwte-hulp-6',
+    text: 'Give sugar (if conscious)',
+    condition: 'flauwte',
+    category: 'eerste_hulp'
+  },
+  {
+    id: 'flauwte-hulp-7',
+    text: 'Remove cause',
+    condition: 'flauwte',
+    category: 'eerste_hulp'
+  },
+  {
+    id: 'flauwte-hulp-8',
+    text: 'If no recovery: call 911',
+    condition: 'flauwte',
+    category: 'eerste_hulp'
+  }
+];
+
+export const getGameCards = (language: 'nl' | 'en'): Card[] => {
+  return language === 'nl' ? gameCards : englishGameCards;
+};
+
 export const categoryLabels = {
   oorzaken: 'Oorzaken',
   verschijnselen: 'Verschijnselen',

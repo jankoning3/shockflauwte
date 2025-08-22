@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Card } from '../types';
 import GameCard from './GameCard';
 import DropZone from './DropZone';
-import { categoryLabels } from '../data/gameData';
 import { ArrowLeft, CheckCircle } from 'lucide-react';
+import { getTranslation } from '../utils/translations';
 
 interface CategoryScreenProps {
   card: Card;
@@ -12,6 +12,7 @@ interface CategoryScreenProps {
   onBack: () => void;
   progress: { current: number; total: number };
   correctCards: Card[];
+  language: 'nl' | 'en';
 }
 
 const CategoryScreen: React.FC<CategoryScreenProps> = ({ 
@@ -20,11 +21,13 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({
   onSelection, 
   onBack,
   progress,
-  correctCards
+  correctCards,
+  language
 }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [dragPosition, setDragPosition] = useState({ x: 0, y: 0 });
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const t = getTranslation(language);
 
   const handleDragStart = (clientX: number, clientY: number, element: HTMLElement) => {
     const rect = element.getBoundingClientRect();
@@ -108,7 +111,7 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({
 
   const conditionColor = selectedCondition === 'shock' ? '#009fe3' : '#52bbb5';
   const conditionColorFlauwte = selectedCondition === 'flauwte' ? '#601f63' : conditionColor;
-  const conditionLabel = selectedCondition.toUpperCase();
+  const conditionLabel = selectedCondition === 'shock' ? t.shock : t.fainting;
 
   // Group correct cards by category for this condition
   const correctCardsByCategory = correctCards
@@ -127,6 +130,15 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({
     }
   };
 
+  const getCategoryLabel = (category: string) => {
+    switch(category) {
+      case 'oorzaken': return t.causes;
+      case 'verschijnselen': return t.symptoms;
+      case 'eerste_hulp': return t.firstAid;
+      default: return category;
+    }
+  };
+
   return (
     <div className={`min-h-screen p-4 ${
       selectedCondition === 'shock' 
@@ -140,11 +152,11 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({
             className="flex items-center space-x-2 text-[#006072] hover:text-[#009fe3] transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
-            <span>Terug</span>
+            <span>{t.back}</span>
           </button>
           <div className="bg-white px-4 py-2 rounded-full shadow-sm border border-[#52bbb5]/20">
             <span className="text-sm font-semibold text-[#006072]">
-              {progress.current} van {progress.total}
+              {progress.current} {t.of} {progress.total}
             </span>
           </div>
         </div>
@@ -185,7 +197,7 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({
         <div className="flex-1 space-y-3">
           <DropZone
             id="oorzaken"
-            label={categoryLabels.oorzaken}
+            label={getCategoryLabel('oorzaken')}
             isActive={false}
             color={getDropZoneColor('oorzaken')}
           >
@@ -199,7 +211,7 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({
           
           <DropZone
             id="verschijnselen"
-            label={categoryLabels.verschijnselen}
+            label={getCategoryLabel('verschijnselen')}
             isActive={false}
             color={getDropZoneColor('verschijnselen')}
           >
@@ -213,7 +225,7 @@ const CategoryScreen: React.FC<CategoryScreenProps> = ({
           
           <DropZone
             id="eerste_hulp"
-            label={categoryLabels.eerste_hulp}
+            label={getCategoryLabel('eerste_hulp')}
             isActive={false}
             color={getDropZoneColor('eerste_hulp')}
           >

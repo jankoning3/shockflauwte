@@ -3,23 +3,27 @@ import { Card } from '../types';
 import GameCard from './GameCard';
 import DropZone from './DropZone';
 import { ArrowLeft } from 'lucide-react';
+import { getTranslation } from '../utils/translations';
 
 interface ConditionScreenProps {
   card: Card;
   onSelection: (condition: 'shock' | 'flauwte') => void;
   onBack: () => void;
   progress: { current: number; total: number };
+  language: 'nl' | 'en';
 }
 
 const ConditionScreen: React.FC<ConditionScreenProps> = ({ 
   card, 
   onSelection, 
   onBack,
-  progress 
+  progress,
+  language 
 }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [dragPosition, setDragPosition] = useState({ x: 0, y: 0 });
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const t = getTranslation(language);
 
   const handleDragStart = (clientX: number, clientY: number, element: HTMLElement) => {
     const rect = element.getBoundingClientRect();
@@ -112,18 +116,18 @@ const ConditionScreen: React.FC<ConditionScreenProps> = ({
             className="flex items-center space-x-2 text-[#006072] hover:text-[#009fe3] transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
-            <span>Terug</span>
+            <span>{t.back}</span>
           </button>
           <div className="bg-white px-4 py-2 rounded-full shadow-sm border border-[#52bbb5]/20">
             <span className="text-sm font-semibold text-[#006072]">
-              {progress.current} van {progress.total}
+              {progress.current} {t.of} {progress.total}
             </span>
           </div>
         </div>
 
         <div className="bg-white rounded-2xl shadow-xl p-6 mb-6 flex-shrink-0 border border-[#52bbb5]/10">
           <h2 className="text-xl font-bold text-center mb-6 text-[#006072]">
-            Sleep de kaart naar de juiste conditie
+            {t.dragToCorrectCondition}
           </h2>
           
           <div className={isDragging ? 'opacity-30' : ''}>
@@ -154,14 +158,14 @@ const ConditionScreen: React.FC<ConditionScreenProps> = ({
         <div className="flex-1 space-y-4">
           <DropZone
             id="shock"
-            label="SHOCK"
+            label={t.shock}
             isActive={false}
             color="blue"
           />
           
           <DropZone
             id="flauwte"
-            label="FLAUWTE"
+            label={t.fainting}
             isActive={false}
             color="teal"
           />

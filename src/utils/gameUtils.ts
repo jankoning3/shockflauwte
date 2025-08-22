@@ -1,5 +1,5 @@
 import { Card } from '../types';
-import { gameCards } from '../data/gameData';
+import { getGameCards } from '../data/gameData';
 
 export const shuffleArray = <T>(array: T[]): T[] => {
   const shuffled = [...array];
@@ -10,7 +10,9 @@ export const shuffleArray = <T>(array: T[]): T[] => {
   return shuffled;
 };
 
-export const selectRandomCards = (totalCards: number = 24): Card[] => {
+export const selectRandomCards = (totalCards: number = 24, language: 'nl' | 'en' = 'nl'): Card[] => {
+  const gameCards = getGameCards(language);
+  
   // Groepeer kaarten per conditie en categorie
   const shockOorzaken = gameCards.filter(card => card.condition === 'shock' && card.category === 'oorzaken');
   const shockVerschijnselen = gameCards.filter(card => card.condition === 'shock' && card.category === 'verschijnselen');

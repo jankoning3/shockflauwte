@@ -1,56 +1,64 @@
 import React from 'react';
 import { Card } from '../types';
-import { RotateCcw, CheckCircle, XCircle, Play } from 'lucide-react';
-import { categoryLabels } from '../data/gameData';
+import { RotateCcw, CheckCircle, XCircle, Play, Minus } from 'lucide-react';
+import { getTranslation } from '../utils/translations';
 
 interface ResultsScreenProps {
-  allCards: Card[];
+  practicedCards: Card[];
   onRestart: () => void;
   onRetryIncorrect: () => void;
+  language: 'nl' | 'en';
 }
 
 const ResultsScreen: React.FC<ResultsScreenProps> = ({ 
-  allCards,
+  practicedCards,
   onRestart, 
-  onRetryIncorrect 
+  onRetryIncorrect,
+  language 
 }) => {
-  // Calculate statistics from all cards
-  const correctCards = allCards.filter(card => card.status === 'correct');
-  const incorrectCards = allCards.filter(card => card.status === 'incorrect');
-  const notPracticedCards = allCards.filter(card => card.status === 'not_practiced');
-  const totalCards = allCards.length;
+  const t = getTranslation(language);
+
+  // Calculate statistics from practiced cards
+  const correctCards = practicedCards.filter(card => card.status === 'correct');
+  const incorrectCards = practicedCards.filter(card => card.status === 'incorrect');
+  const totalCards = practicedCards.length;
   
   const calculateScore = (correct: number, total: number): number => {
+    if (total === 0) return 0;
     return Math.round((correct / total) * 100);
   };
   
   const getScoreMessage = (score: number): string => {
-    if (score === 100) return 'Uitstekend! Perfect resultaat! 🎉';
-    if (score >= 80) return 'Heel goed! Bijna alles correct! 👍';
-    if (score >= 60) return 'Goed bezig! Nog even oefenen! 💪';
-    return 'Ga vooral door met oefenen! 📚';
+    if (score === 100) return t.excellent;
+    if (score >= 80) return t.veryGood;
+    if (score >= 60) return t.goodJob;
+    return t.keepPracticing;
   };
   
   const score = calculateScore(correctCards.length, totalCards);
   const message = getScoreMessage(score);
 
-  // Group cards by condition and category
-  const groupCardsByConditionAndCategory = (cards: Card[]) => {
+  // Group cards by user's answer (where they placed it), not by correct answer
+  const groupCardsByUserAnswer = (cards: Card[]) => {
     const grouped: Record<string, Record<string, Card[]>> = {
       shock: { oorzaken: [], verschijnselen: [], eerste_hulp: [] },
       flauwte: { oorzaken: [], verschijnselen: [], eerste_hulp: [] }
     };
     
     cards.forEach(card => {
-      if (grouped[card.condition] && grouped[card.condition][card.category]) {
-        grouped[card.condition][card.category].push(card);
+      // Use user's answer for grouping, fallback to correct answer if no user answer
+      const condition = card.userCondition || card.condition;
+      const category = card.userCategory || card.category;
+      
+      if (grouped[condition] && grouped[condition][category]) {
+        grouped[condition][category].push(card);
       }
     });
     
     return grouped;
   };
 
-  const allCardsGrouped = groupCardsByConditionAndCategory(allCards);
+  const practicedCardsGrouped = groupCardsByUserAnswer(practicedCards);
 
   const getCategoryColor = (category: string) => {
     switch(category) {
@@ -65,20 +73,26 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
     }
   };
 
-  const getStatusIcon = (status: string) => {
-    switch(status) {
-      case 'correct':
-        return <CheckCircle className="w-4 h-4 text-[#52bbb5] mt-0.5 flex-shrink-0" />;
-      case 'incorrect':
-        return <XCircle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />;
-      case 'not_practiced':
-        return <Minus className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />;
-      default:
-        return <Minus className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />;
+  const getStatusIcon = (card: Card) => {
+    if (card.status === 'correct') {
+      return <CheckCircle className="w-4 h-4 text-[#52bbb5] mt-0.5 flex-shrink-0" />;
+    } else {
+      return <XCircle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />;
     }
   };
+
+  const getCategoryLabel = (category: string) => {
+    switch(category) {
+      case 'oorzaken': return t.causes;
+      case 'verschijnselen': return t.symptoms;
+      case 'eerste_hulp': return t.firstAid;
+      default: return category;
+    }
+  };
+
   const renderConditionSection = (condition: 'shock' | 'flauwte') => {
     const conditionColor = condition === 'shock' ? '#009fe3' : '#601f63';
+    const conditionLabel = condition === 'shock' ? t.shock : t.fainting;
     const categories = ['oorzaken', 'verschijnselen', 'eerste_hulp'];
     
     return (
@@ -88,16 +102,15 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
             className="inline-block px-6 py-3 rounded-xl text-white font-bold text-lg mb-4"
             style={{ backgroundColor: conditionColor }}
           >
-            {condition.toUpperCase()}
+            {conditionLabel}
           </div>
         </div>
         
         <div className="space-y-4">
           {categories.map(category => {
-            const categoryCards = allCardsGrouped[condition][category] || [];
+            const categoryCards = practicedCardsGrouped[condition][category] || [];
             const correct = categoryCards.filter(card => card.status === 'correct');
             const incorrect = categoryCards.filter(card => card.status === 'incorrect');
-            const notPracticed = categoryCards.filter(card => card.status === 'not_practiced');
             const total = categoryCards.length;
             
             if (total === 0) return null;
@@ -106,7 +119,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
               <div key={category} className="border border-[#52bbb5]/20 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-3">
                   <div className={`${getCategoryColor(category)} text-white px-3 py-1 rounded-lg font-semibold text-sm`}>
-                    {categoryLabels[category as keyof typeof categoryLabels]}
+                    {getCategoryLabel(category)}
                   </div>
                   <div className="text-sm font-semibold text-[#006072]">
                     {correct.length}/{total}
@@ -116,7 +129,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
                 <div className="space-y-2">
                   {categoryCards.map((card, index) => (
                     <div key={`card-${index}`} className="flex items-start space-x-2 text-sm">
-                      {getStatusIcon(card.status || 'not_practiced')}
+                      {getStatusIcon(card)}
                       <span className="text-[#006072] leading-tight">{card.text}</span>
                     </div>
                   ))}
@@ -151,11 +164,11 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
               {message}
             </p>
             
-            <div className="grid grid-cols-3 gap-4 mb-4">
+            <div className="grid grid-cols-2 gap-4 mb-4">
               <div className="bg-[#52bbb5]/10 rounded-lg p-4 border border-[#52bbb5]/20">
                 <div className="flex items-center justify-center space-x-2 mb-2">
                   <CheckCircle className="w-5 h-5 text-[#52bbb5]" />
-                  <span className="font-semibold text-[#006072]">Correct</span>
+                  <span className="font-semibold text-[#006072]">{t.correct}</span>
                 </div>
                 <p className="text-2xl font-bold text-[#52bbb5]">
                   {correctCards.length}
@@ -165,31 +178,23 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
               <div className="bg-red-50 rounded-lg p-4 border border-red-200">
                 <div className="flex items-center justify-center space-x-2 mb-2">
                   <XCircle className="w-5 h-5 text-red-500" />
-                  <span className="font-semibold text-red-700">Fout</span>
+                  <span className="font-semibold text-red-700">{t.incorrect}</span>
                 </div>
                 <p className="text-2xl font-bold text-red-500">
                   {incorrectCards.length}
-                </p>
-              </div>
-              
-              <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                <div className="flex items-center justify-center space-x-2 mb-2">
-                  <Minus className="w-5 h-5 text-gray-400" />
-                  <span className="font-semibold text-gray-600">Niet geoefend</span>
-                </div>
-                <p className="text-2xl font-bold text-gray-400">
-                  {notPracticedCards.length}
                 </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Results per condition */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-          {renderConditionSection('shock')}
-          {renderConditionSection('flauwte')}
-        </div>
+        {/* Results per condition - only show if there are practiced cards */}
+        {totalCards > 0 && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            {renderConditionSection('shock')}
+            {renderConditionSection('flauwte')}
+          </div>
+        )}
 
         {/* Action buttons */}
         <div className="space-y-3">
@@ -199,7 +204,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
               className="w-full bg-[#009fe3] hover:bg-[#006072] text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg"
             >
               <RotateCcw className="w-5 h-5" />
-              <span>Oefen foute kaarten ({incorrectCards.length})</span>
+              <span>{t.practiceIncorrect} ({incorrectCards.length})</span>
             </button>
           )}
           
@@ -208,14 +213,14 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({
             className="w-full bg-[#52bbb5] hover:bg-[#009fe3] text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg"
           >
             <Play className="w-5 h-5" />
-            <span>Nieuw Spel Starten</span>
+            <span>{t.startNewGame}</span>
           </button>
         </div>
 
-        {score === 100 && (
+        {score === 100 && totalCards > 0 && (
           <div className="mt-6 bg-gradient-to-r from-[#52bbb5]/10 to-[#009fe3]/10 rounded-lg p-4 text-center border border-[#52bbb5]/20">
             <p className="text-[#006072] font-medium">
-              Perfect! Je beheerst het onderscheid tussen shock en flauwte volledig!
+              {t.perfectMessage}
             </p>
           </div>
         )}
