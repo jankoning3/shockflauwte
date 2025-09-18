@@ -44,12 +44,7 @@ export const gameCards: Card[] = [
     condition: 'shock',
     category: 'oorzaken'
   },
-  {
-    id: 'shock-oorzaak-8',
-    text: 'Grote vochtverlies door braken/diarree',
-    condition: 'shock',
-    category: 'oorzaken'
-  },
+  // Removed: 'Grote vochtverlies door braken/diarree'
 
   // Shock - Verschijnselen
   {
@@ -60,7 +55,7 @@ export const gameCards: Card[] = [
   },
   {
     id: 'shock-verschijnsel-2',
-    text: 'Snelle, zwakke pols',
+    text: 'Snelle pols',
     condition: 'shock',
     category: 'verschijnselen'
   },
@@ -96,7 +91,7 @@ export const gameCards: Card[] = [
   },
   {
     id: 'shock-verschijnsel-8',
-    text: 'Verminderd bewustzijn',
+    text: 'Verliezen van bewustzijn',
     condition: 'shock',
     category: 'verschijnselen'
   },
@@ -114,38 +109,28 @@ export const gameCards: Card[] = [
     condition: 'shock',
     category: 'eerste_hulp'
   },
+  // Removed: 'Benen omhoog (schokhouding)'
   {
     id: 'shock-hulp-3',
-    text: 'Benen omhoog (schokhouding)',
-    condition: 'shock',
-    category: 'eerste_hulp'
-  },
-  {
-    id: 'shock-hulp-4',
     text: 'Warm houden met deken',
     condition: 'shock',
     category: 'eerste_hulp'
   },
   {
-    id: 'shock-hulp-5',
+    id: 'shock-hulp-4',
     text: 'Bloeding stelpen',
     condition: 'shock',
     category: 'eerste_hulp'
   },
   {
-    id: 'shock-hulp-6',
+    id: 'shock-hulp-5',
     text: 'Geen eten of drinken geven',
     condition: 'shock',
     category: 'eerste_hulp'
   },
+  // Moved 'Geruststellen' to flauwte eerste hulp
   {
-    id: 'shock-hulp-7',
-    text: 'Geruststellen',
-    condition: 'shock',
-    category: 'eerste_hulp'
-  },
-  {
-    id: 'shock-hulp-8',
+    id: 'shock-hulp-6',
     text: 'Bewustzijn controleren',
     condition: 'shock',
     category: 'eerste_hulp'
@@ -282,21 +267,29 @@ export const gameCards: Card[] = [
     condition: 'flauwte',
     category: 'eerste_hulp'
   },
+  // Removed: 'Suiker geven (bij bewustzijn)'
   {
     id: 'flauwte-hulp-6',
-    text: 'Suiker geven (bij bewustzijn)',
-    condition: 'flauwte',
-    category: 'eerste_hulp'
-  },
-  {
-    id: 'flauwte-hulp-7',
     text: 'Oorzaak wegnemen',
     condition: 'flauwte',
     category: 'eerste_hulp'
   },
   {
-    id: 'flauwte-hulp-8',
+    id: 'flauwte-hulp-7',
     text: 'Bij geen herstel: 112 bellen',
+    condition: 'flauwte',
+    category: 'eerste_hulp'
+  },
+  // Added: Moved from shock and added new card
+  {
+    id: 'flauwte-hulp-8',
+    text: 'Geruststellen',
+    condition: 'flauwte',
+    category: 'eerste_hulp'
+  },
+  {
+    id: 'flauwte-hulp-9',
+    text: 'Laten liggen',
     condition: 'flauwte',
     category: 'eerste_hulp'
   }
@@ -346,12 +339,7 @@ export const englishGameCards: Card[] = [
     condition: 'shock',
     category: 'oorzaken'
   },
-  {
-    id: 'shock-oorzaak-8',
-    text: 'Major fluid loss from vomiting/diarrhea',
-    condition: 'shock',
-    category: 'oorzaken'
-  },
+  // Removed: 'Major fluid loss from vomiting/diarrhea'
 
   // Shock - Symptoms
   {
@@ -362,7 +350,7 @@ export const englishGameCards: Card[] = [
   },
   {
     id: 'shock-verschijnsel-2',
-    text: 'Fast, weak pulse',
+    text: 'Fast pulse',
     condition: 'shock',
     category: 'verschijnselen'
   },
@@ -398,7 +386,7 @@ export const englishGameCards: Card[] = [
   },
   {
     id: 'shock-verschijnsel-8',
-    text: 'Reduced consciousness',
+    text: 'Loss of consciousness',
     condition: 'shock',
     category: 'verschijnselen'
   },
@@ -416,38 +404,28 @@ export const englishGameCards: Card[] = [
     condition: 'shock',
     category: 'eerste_hulp'
   },
+  // Removed: 'Elevate legs (shock position)'
   {
     id: 'shock-hulp-3',
-    text: 'Elevate legs (shock position)',
-    condition: 'shock',
-    category: 'eerste_hulp'
-  },
-  {
-    id: 'shock-hulp-4',
     text: 'Keep warm with blanket',
     condition: 'shock',
     category: 'eerste_hulp'
   },
   {
-    id: 'shock-hulp-5',
+    id: 'shock-hulp-4',
     text: 'Stop bleeding',
     condition: 'shock',
     category: 'eerste_hulp'
   },
   {
-    id: 'shock-hulp-6',
+    id: 'shock-hulp-5',
     text: 'Do not give food or drink',
     condition: 'shock',
     category: 'eerste_hulp'
   },
+  // Moved 'Reassure' to fainting first aid
   {
-    id: 'shock-hulp-7',
-    text: 'Reassure',
-    condition: 'shock',
-    category: 'eerste_hulp'
-  },
-  {
-    id: 'shock-hulp-8',
+    id: 'shock-hulp-6',
     text: 'Monitor consciousness',
     condition: 'shock',
     category: 'eerste_hulp'
@@ -584,21 +562,29 @@ export const englishGameCards: Card[] = [
     condition: 'flauwte',
     category: 'eerste_hulp'
   },
+  // Removed: 'Give sugar (if conscious)'
   {
     id: 'flauwte-hulp-6',
-    text: 'Give sugar (if conscious)',
-    condition: 'flauwte',
-    category: 'eerste_hulp'
-  },
-  {
-    id: 'flauwte-hulp-7',
     text: 'Remove cause',
     condition: 'flauwte',
     category: 'eerste_hulp'
   },
   {
-    id: 'flauwte-hulp-8',
+    id: 'flauwte-hulp-7',
     text: 'If no recovery: call 112',
+    condition: 'flauwte',
+    category: 'eerste_hulp'
+  },
+  // Added: Moved from shock and added new card
+  {
+    id: 'flauwte-hulp-8',
+    text: 'Reassure',
+    condition: 'flauwte',
+    category: 'eerste_hulp'
+  },
+  {
+    id: 'flauwte-hulp-9',
+    text: 'Let lie down',
     condition: 'flauwte',
     category: 'eerste_hulp'
   }
